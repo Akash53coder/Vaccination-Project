@@ -32,7 +32,7 @@
 	</style>
 	</head>
 	<body>
-		<h2 class="header">Welcome
+		<h2 class="header" >Welcome
 		to Vaccination Website</h2>
 		<div class="container" style="margin-top:40px">
 			<div class="col-sm-4"></div>
