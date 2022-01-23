@@ -27,7 +27,7 @@
 			padding-top: 10px; 
 			padding-bottom: 10px; 
 			width: 100%; 
-			color: white
+			color: white;
 		}
 	</style>
 	</head>
