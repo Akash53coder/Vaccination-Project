@@ -1,19 +1,25 @@
 package com.xworkz.vaccine.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.xworkz.vaccine.dao.VaccineDAOImpl;
+import com.xworkz.vaccine.entity.UserOTPEntity;
 import com.xworkz.vaccine.util.OTPGenerator;
 
 @Service
-public class RegisterServiceImpl implements RegisterService{
+public class VaccineServiceImpl implements VaccineService{
 
 	@Autowired
 	private JavaMailSender mailSender;
 	
-	public RegisterServiceImpl() {
+	@Autowired
+	private VaccineDAOImpl vaccineDAOImpl ;
+	
+	public VaccineServiceImpl() {
 		super();
 		System.out.println("bean created for" +this.getClass().getSimpleName());
 	}
@@ -47,5 +53,36 @@ public class RegisterServiceImpl implements RegisterService{
 		}
 		
 	}
+	@Override
+	public boolean saveOTPToDB(String email, int otp) {
+		System.out.println("called saveOTPinfo() in service");
+		UserOTPEntity userOTPEntity = new UserOTPEntity(email,otp);
+		if(this.vaccineDAOImpl.saveOTP(userOTPEntity)) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public boolean validateVerifyOTP(Integer otp) {
+		System.out.println("called validateVerifyOTP()");
+		if(otp!=null) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public boolean verifyOTP(Integer otp) {
+		System.out.println("called verifyOTP() in service");
+		Integer otpValue = this.vaccineDAOImpl.isOTPPresent(otp);
+		if(otpValue!=null) {
+			System.out.println("inside null check");			
+			if(otpValue.compareTo(otp)==0) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
 
 }

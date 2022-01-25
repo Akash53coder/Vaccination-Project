@@ -40,6 +40,8 @@
 				<form action="verifyotp.vaccine" method="POST">
 					<h3 style="text-align:center">OTP Verification</h3>
 					<h4 style="color: green; margin-left: 30px; text-align: center;">${OTP_Sent}</h4>
+					<h4 style="color: green; margin-left: 30px; text-align: center;">${OTP_Verified}</h4>
+					<h4 style="color: red; margin-left: 30px; text-align: center;">${OTP_Invalid}</h4>
 					<div class="form-group">
 						<label>Enter OTP</label>
 						<input type="text" name="otp" class="form-control">

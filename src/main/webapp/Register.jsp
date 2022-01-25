@@ -35,10 +35,10 @@
 	<body>
 		<h2 class="header">Welcome
 		to Vaccination Website</h2>
-		<div class="container" style="margin-top:40px">
+		<div class="container" style="margin-top:50px">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
-				<form action="registervaccine.vaccine" method="POST">
+				<form action="sendotpmail.vaccine" method="POST">
 					<h3 style="text-align:center">Vaccination Registration</h3>
 					<h4 style="color: red; margin-left: 30px; text-align: center;">${Invalid_EmailId}</h4>
 					<h4 style="color: red; margin-left: 30px; text-align: center;">${OTP_Not_Sent}</h4>

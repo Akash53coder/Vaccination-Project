@@ -23,5 +23,39 @@
 			</props>
 		</property>
 	</bean>
+
+	<bean
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="driverManagerDataSource"></property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.xworkz.vaccine.entity.UserOTPEntity</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+			</props>
+		</property>
+	</bean>
+	<bean
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		id="driverManagerDataSource">
+		<constructor-arg name="url"
+			value="${driverManagerDataSource.url}"></constructor-arg>
+		<constructor-arg name="username"
+			value="${driverManagerDataSource.username}"></constructor-arg>
+		<constructor-arg name="password"
+			value="${driverManagerDataSource.password}"></constructor-arg>
+		<property name="driverClassName"
+			value="${driverManagerDataSource.driverClassName}"></property>
+	</bean>
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations"
+			value="/WEB-INF/classes/database.properties"></property>
+	</bean>
 </beans>
 
