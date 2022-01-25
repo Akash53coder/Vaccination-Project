@@ -5,6 +5,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Vaccine-App OTP Verification</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -14,7 +15,7 @@
 			margin-bottom: 0px; 
 			margin-top: 31%; 
 			text-align: center; 
-			background-color: #008080; 
+			background-color: #405872; 
 			padding-top: 10px; 
 			padding-bottom: 10px; 
 			width: 100%; 
@@ -23,18 +24,26 @@
 		.header{
 			margin-top: 0px; 
 			text-align: center; 
-			background-color: #009999; 
+			background-color: #496483; 
 			padding-top: 10px; 
 			padding-bottom: 10px; 
 			width: 100%; 
 			color: white;
+		}
+		.verify_btn{
+			background: linear-gradient(to right, #642b73, #c6426e);
+			padding: 8px;
+			width: 100px;
+			color:white;
+			border:none;
+			box-shadow:0px 2px 8px 0px rgba(255,97,98,0.46) !important;
 		}
 	</style>
 	</head>
 	<body>
 		<h2 class="header" >Welcome
 		to Vaccination Website</h2>
-		<div class="container" style="margin-top:40px">
+		<div class="container" style="margin-top:39px">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
 				<form action="verifyotp.vaccine" method="POST">
@@ -46,7 +55,7 @@
 						<label>Enter OTP</label>
 						<input type="text" name="otp" class="form-control">
 					</div>
-					<button type="submit" class="btn btn-warning">Verify OTP</button>
+					<button type="submit" class="btn verify_btn">Verify OTP</button>
 				</form>
 			</div>
 			<div class="col-sm-4"></div>
