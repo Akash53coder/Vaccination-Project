@@ -16,7 +16,7 @@
 			margin-bottom: 0; 
 			margin-top: 32%; 
 			text-align: center; 
-			background-color: #405872; 
+			background-color: #374b62; 
 			padding-top: 10px; 
 			padding-bottom: 10px; 
 			width: 100%; 
@@ -41,13 +41,15 @@
 		    font-weight: 500;
 		    line-height: 38px;
 		    border: 1px solid #17415d;
-		    border-radius: 0px;
+		    border-radius: 5px;
 		    outline: none !important;
 		    box-shadow: none !important;
 		    text-align: center;
-		    border: 1px solid #17415d;
 		    cursor: pointer;
 		    transition: all 300ms linear 0s;
+		    background-image:linear-gradient(0deg,#ff934b 0%,#ff5e62 100%);
+		    border:none;
+		    box-shadow:0px 2px 8px 0px rgba(255,97,98,0.46);
 	}
 	</style>
 	<body>
@@ -62,9 +64,9 @@
 					<h4 style="color: red; margin-left: 30px; text-align: center;">${OTP_Not_Sent}</h4>
 					<div class="form-group">
 						<label>Enter Email-Id</label>
-						<input type="text" name="emailId" class="form-control">
+						<input type="text" name="emailId" class="form-control" value="akash.mabali7@gmail.com">
 					</div>
-					<button type="submit" class="btn submit_btn" style="background-image:linear-gradient(0deg,#ff934b 0%,#ff5e62 100%);border:none;box-shadow:0px 2px 8px 0px rgba(255,97,98,0.46) !important">Get OTP</button>
+					<button type="submit" class="btn submit_btn">Get OTP</button>
 				</form>
 			</div>
 			<div class="col-sm-3"></div>

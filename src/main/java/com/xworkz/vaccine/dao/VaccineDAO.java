@@ -4,6 +4,7 @@ import com.xworkz.vaccine.entity.UserOTPEntity;
 
 public interface VaccineDAO {
 
-	boolean saveOTP(UserOTPEntity userOTPEntity);
-	Integer isOTPPresent(Integer otp);
+	Integer saveOTP(UserOTPEntity userOTPEntity);
+	Integer isOTPPresent(Integer id);
+	String getEmailById(Integer id);
 }

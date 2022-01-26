@@ -15,7 +15,7 @@
 			margin-bottom: 0px; 
 			margin-top: 31%; 
 			text-align: center; 
-			background-color: #405872; 
+			background-color: #374b62; 
 			padding-top: 10px; 
 			padding-bottom: 10px; 
 			width: 100%; 
@@ -56,6 +56,7 @@
 						<input type="text" name="otp" class="form-control">
 					</div>
 					<button type="submit" class="btn verify_btn">Verify OTP</button>
+					<span><a href="resendotpmail.vaccine" style="text-decoration:underline;margin-left:10px;cursor:pointer;font-weight:bold">Resend OTP</a></span>				
 				</form>
 			</div>
 			<div class="col-sm-4"></div>

@@ -45,7 +45,7 @@ public class VaccineController {
 			if (this.vaccineService.verifyOTP(otp)) {
 				System.out.println("otp varified");
 				model.addAttribute("OTP_Verified", "OTP Verified!!!");
-				return "/WEB-INF/pages/Verifyotp.jsp";
+				return "/WEB-INF/pages/Signup.jsp";
 			} else {
 				model.addAttribute("OTP_Invalid", "Wrong OTP Entered!!!");
 				return "/WEB-INF/pages/Verifyotp.jsp";
@@ -56,6 +56,16 @@ public class VaccineController {
 			return "/WEB-INF/pages/Verifyotp.jsp";
 		}
 
+	}
+
+	@RequestMapping("/resendotpmail.vaccine")
+	public String resendOTPMail(Model model) {
+		int len = VaccineService.LASTINERTIDLIST.size();
+		int id = VaccineService.LASTINERTIDLIST.get(len - 1);
+		String emailId = this.vaccineService.getEmailById(id);
+		this.sendOTPMail(emailId, model);
+		model.addAttribute("OTP_Sent", "OTP Has Resent!!!");
+		return "/WEB-INF/pages/Verifyotp.jsp";
 	}
 
 }

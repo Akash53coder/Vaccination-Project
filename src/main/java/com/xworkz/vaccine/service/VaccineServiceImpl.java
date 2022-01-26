@@ -2,11 +2,12 @@ package com.xworkz.vaccine.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.xworkz.vaccine.dao.VaccineDAOImpl;
+import com.xworkz.vaccine.dao.VaccineDAO;
 import com.xworkz.vaccine.entity.UserOTPEntity;
 import com.xworkz.vaccine.util.OTPGenerator;
 
@@ -17,7 +18,7 @@ public class VaccineServiceImpl implements VaccineService{
 	private JavaMailSender mailSender;
 	
 	@Autowired
-	private VaccineDAOImpl vaccineDAOImpl ;
+	private VaccineDAO vaccineDAO ;
 	
 	public VaccineServiceImpl() {
 		super();
@@ -44,6 +45,7 @@ public class VaccineServiceImpl implements VaccineService{
 		try {
 			SimpleMailMessage mailMsg = new SimpleMailMessage();
 			mailMsg.setTo(email);
+			mailMsg.setSubject("OTP For Vaccine Registration");
 			mailMsg.setText(otp+" Is Your OTP For Vaccination Registration");
 			mailSender.send(mailMsg);
 			return true;
@@ -57,7 +59,9 @@ public class VaccineServiceImpl implements VaccineService{
 	public boolean saveOTPToDB(String email, int otp) {
 		System.out.println("called saveOTPinfo() in service");
 		UserOTPEntity userOTPEntity = new UserOTPEntity(email,otp);
-		if(this.vaccineDAOImpl.saveOTP(userOTPEntity)) {
+		Integer lastinsertId = this.vaccineDAO.saveOTP(userOTPEntity);
+		if(lastinsertId!=0) {
+			LASTINERTIDLIST.add(lastinsertId); 
 			return true;
 		}
 		return false;
@@ -73,14 +77,23 @@ public class VaccineServiceImpl implements VaccineService{
 	@Override
 	public boolean verifyOTP(Integer otp) {
 		System.out.println("called verifyOTP() in service");
-		Integer otpValue = this.vaccineDAOImpl.isOTPPresent(otp);
+		int len = VaccineService.LASTINERTIDLIST.size();
+		int id = VaccineService.LASTINERTIDLIST.get(len - 1);
+		Integer otpValue = this.vaccineDAO.isOTPPresent(id);
 		if(otpValue!=null) {
-			System.out.println("inside null check");			
 			if(otpValue.compareTo(otp)==0) {
 				return true;
 			}
 		}
 		return false;
+	}
+	@Override
+	public String getEmailById(Integer id) {
+		String emailIdFromDB = this.vaccineDAO.getEmailById(id);
+		if(emailIdFromDB!=null) {
+			return emailIdFromDB;
+		}
+		return null;
 	}
 	
 	
