@@ -6,23 +6,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.xworkz.vaccine.service.VaccineService;
+import com.xworkz.vaccine.service.RegisternOTPService;
 
 @Controller
 @RequestMapping("/")
-public class VaccineController {
+public class RegisternOTPController {
 
 	@Autowired
-	private VaccineService vaccineService;
+	private RegisternOTPService registernOTPService;
+	
+	private String email;
+	
+	public String getEmail() {
+		return email;
+	}
 
 	@RequestMapping("/sendotpmail.vaccine")
 	public String sendOTPMail(@RequestParam String emailId, Model model) {
 		System.out.println("called sendRegistrationMail()");
-		if (this.vaccineService.validateEmailId(emailId)) {
-			int otp = this.vaccineService.getOTP();
-			boolean isMailSent = this.vaccineService.sendOTPMail(emailId, otp);
+		this.email = emailId;
+		if (this.registernOTPService.validateEmailId(emailId)) {
+			int otp = this.registernOTPService.getOTP();
+			boolean isMailSent = this.registernOTPService.sendOTPMail(emailId, otp);
 			if (isMailSent) {
-				boolean isSaved = this.vaccineService.saveOTPToDB(emailId, otp);
+				boolean isSaved = this.registernOTPService.saveOTPToDB(emailId, otp);
 				if (isSaved) {
 					System.out.println("OTP Data saved");
 				}
@@ -41,8 +48,8 @@ public class VaccineController {
 	@RequestMapping("/verifyotp.vaccine")
 	public String verifyOTP(@RequestParam Integer otp, Model model) {
 		System.out.println("called verify otp()");
-		if (this.vaccineService.validateVerifyOTP(otp)) {
-			if (this.vaccineService.verifyOTP(otp)) {
+		if (this.registernOTPService.validateVerifyOTP(otp)) {
+			if (this.registernOTPService.verifyOTP(this.email, otp)) {
 				System.out.println("otp varified");
 				model.addAttribute("OTP_Verified", "OTP Verified!!!");
 				return "/WEB-INF/pages/Signup.jsp";
@@ -60,10 +67,7 @@ public class VaccineController {
 
 	@RequestMapping("/resendotpmail.vaccine")
 	public String resendOTPMail(Model model) {
-		int len = VaccineService.LASTINERTIDLIST.size();
-		int id = VaccineService.LASTINERTIDLIST.get(len - 1);
-		String emailId = this.vaccineService.getEmailById(id);
-		this.sendOTPMail(emailId, model);
+		this.sendOTPMail(this.email, model);
 		model.addAttribute("OTP_Sent", "OTP Has Resent!!!");
 		return "/WEB-INF/pages/Verifyotp.jsp";
 	}

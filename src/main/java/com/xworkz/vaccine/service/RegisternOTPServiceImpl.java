@@ -7,20 +7,22 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-import com.xworkz.vaccine.dao.VaccineDAO;
+import com.xworkz.vaccine.controller.RegisternOTPController;
+import com.xworkz.vaccine.dao.RegisternOTPDAO;
 import com.xworkz.vaccine.entity.UserOTPEntity;
 import com.xworkz.vaccine.util.OTPGenerator;
 
 @Service
-public class VaccineServiceImpl implements VaccineService{
+public class RegisternOTPServiceImpl implements RegisternOTPService{
 
 	@Autowired
 	private JavaMailSender mailSender;
 	
 	@Autowired
-	private VaccineDAO vaccineDAO ;
+	private RegisternOTPDAO registernOTPDAO ;
 	
-	public VaccineServiceImpl() {
+	
+	public RegisternOTPServiceImpl() {
 		super();
 		System.out.println("bean created for" +this.getClass().getSimpleName());
 	}
@@ -59,9 +61,7 @@ public class VaccineServiceImpl implements VaccineService{
 	public boolean saveOTPToDB(String email, int otp) {
 		System.out.println("called saveOTPinfo() in service");
 		UserOTPEntity userOTPEntity = new UserOTPEntity(email,otp);
-		Integer lastinsertId = this.vaccineDAO.saveOTP(userOTPEntity);
-		if(lastinsertId!=0) {
-			LASTINERTIDLIST.add(lastinsertId); 
+		if(this.registernOTPDAO.saveOTP(userOTPEntity)) {
 			return true;
 		}
 		return false;
@@ -75,11 +75,9 @@ public class VaccineServiceImpl implements VaccineService{
 		return false;
 	}
 	@Override
-	public boolean verifyOTP(Integer otp) {
+	public boolean verifyOTP(String email,Integer otp) {
 		System.out.println("called verifyOTP() in service");
-		int len = VaccineService.LASTINERTIDLIST.size();
-		int id = VaccineService.LASTINERTIDLIST.get(len - 1);
-		Integer otpValue = this.vaccineDAO.isOTPPresent(id);
+		Integer otpValue = this.registernOTPDAO.isOTPPresent(email);
 		if(otpValue!=null) {
 			if(otpValue.compareTo(otp)==0) {
 				return true;
@@ -87,14 +85,7 @@ public class VaccineServiceImpl implements VaccineService{
 		}
 		return false;
 	}
-	@Override
-	public String getEmailById(Integer id) {
-		String emailIdFromDB = this.vaccineDAO.getEmailById(id);
-		if(emailIdFromDB!=null) {
-			return emailIdFromDB;
-		}
-		return null;
-	}
+
 	
 	
 
