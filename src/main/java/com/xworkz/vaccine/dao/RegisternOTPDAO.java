@@ -6,4 +6,5 @@ public interface RegisternOTPDAO {
 
 	boolean saveOTP(UserOTPEntity userOTPEntity);
 	Integer isOTPPresent(String email);
+	boolean updateOTPDetails(UserOTPEntity userOTPEntity);
 }

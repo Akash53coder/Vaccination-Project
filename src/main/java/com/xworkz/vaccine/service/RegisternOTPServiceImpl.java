@@ -85,6 +85,17 @@ public class RegisternOTPServiceImpl implements RegisternOTPService{
 		}
 		return false;
 	}
+	@Override
+	public boolean updateOTPinDB(String email, Integer otp) {
+		UserOTPEntity entity = new UserOTPEntity();
+		entity.setEmailId(email);
+		entity.setOtp(otp);
+		boolean isUpdated = this.registernOTPDAO.updateOTPDetails(entity);
+		if(isUpdated) {
+			return true;
+		}
+		return false;
+	}
 
 	
 	

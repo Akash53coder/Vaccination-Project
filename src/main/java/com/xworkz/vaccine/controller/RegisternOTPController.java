@@ -14,9 +14,9 @@ public class RegisternOTPController {
 
 	@Autowired
 	private RegisternOTPService registernOTPService;
-	
+
 	private String email;
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -33,7 +33,7 @@ public class RegisternOTPController {
 				if (isSaved) {
 					System.out.println("OTP Data saved");
 				}
-				model.addAttribute("OTP_Sent", "OTP Has Sent to Your EmailId !!");
+				model.addAttribute("OTP_Msg", "OTP Has Sent to Your EmailId !!");
 				return "/WEB-INF/pages/Verifyotp.jsp";
 			} else {
 				model.addAttribute("OTP_Not_Sent", "Sorry!! OTP Not Sent");
@@ -67,9 +67,18 @@ public class RegisternOTPController {
 
 	@RequestMapping("/resendotpmail.vaccine")
 	public String resendOTPMail(Model model) {
-		this.sendOTPMail(this.email, model);
-		model.addAttribute("OTP_Sent", "OTP Has Resent!!!");
+		int otp = this.registernOTPService.getOTP();
+		boolean otpMailReSent = this.registernOTPService.sendOTPMail(this.email, otp);
+		if (otpMailReSent) {
+			if (this.registernOTPService.updateOTPinDB(this.email, otp)) {
+				model.addAttribute("OTP_Msg", "OTP Has Resent!!!");
+				return "/WEB-INF/pages/Verifyotp.jsp";
+			}
+		} else {
+			model.addAttribute("OTP_Msg", "Sorry!!! Something Went Wrong");
+		}
 		return "/WEB-INF/pages/Verifyotp.jsp";
+
 	}
 
 }
