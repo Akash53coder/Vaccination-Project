@@ -12,19 +12,15 @@ import com.xworkz.vaccine.service.RegisternOTPService;
 @RequestMapping("/")
 public class RegisternOTPController {
 
+	public static String emailId;
+
 	@Autowired
 	private RegisternOTPService registernOTPService;
-
-	private String email;
-
-	public String getEmail() {
-		return email;
-	}
 
 	@RequestMapping("/sendotpmail.vaccine")
 	public String sendOTPMail(@RequestParam String emailId, Model model) {
 		System.out.println("called sendRegistrationMail()");
-		this.email = emailId;
+		RegisternOTPController.emailId = emailId;
 		if (this.registernOTPService.validateEmailId(emailId)) {
 			int otp = this.registernOTPService.getOTP();
 			boolean isMailSent = this.registernOTPService.sendOTPMail(emailId, otp);
@@ -49,7 +45,7 @@ public class RegisternOTPController {
 	public String verifyOTP(@RequestParam Integer otp, Model model) {
 		System.out.println("called verify otp()");
 		if (this.registernOTPService.validateVerifyOTP(otp)) {
-			if (this.registernOTPService.verifyOTP(this.email, otp)) {
+			if (this.registernOTPService.verifyOTP(RegisternOTPController.emailId, otp)) {
 				System.out.println("otp varified");
 				model.addAttribute("OTP_Verified", "OTP Verified!!!");
 				return "/WEB-INF/pages/Signup.jsp";
@@ -68,9 +64,9 @@ public class RegisternOTPController {
 	@RequestMapping("/resendotpmail.vaccine")
 	public String resendOTPMail(Model model) {
 		int otp = this.registernOTPService.getOTP();
-		boolean otpMailReSent = this.registernOTPService.sendOTPMail(this.email, otp);
+		boolean otpMailReSent = this.registernOTPService.sendOTPMail(RegisternOTPController.emailId, otp);
 		if (otpMailReSent) {
-			if (this.registernOTPService.updateOTPinDB(this.email, otp)) {
+			if (this.registernOTPService.updateOTPinDB(RegisternOTPController.emailId, otp)) {
 				model.addAttribute("OTP_Msg", "OTP Has Resent!!!");
 				return "/WEB-INF/pages/Verifyotp.jsp";
 			}
