@@ -9,4 +9,5 @@ public interface RegisternOTPService {
 	boolean validateVerifyOTP(Integer otp);
 	boolean verifyOTP(String email,Integer otp);
 	boolean updateOTPinDB(String email, Integer otp);
+	
 }

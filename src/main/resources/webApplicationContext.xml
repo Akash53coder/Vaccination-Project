@@ -30,6 +30,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>com.xworkz.vaccine.entity.UserOTPEntity</value>
+				<value>com.xworkz.vaccine.entity.UserSignUpEntity</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
