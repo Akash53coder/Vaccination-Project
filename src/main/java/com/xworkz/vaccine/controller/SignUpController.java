@@ -37,7 +37,6 @@ public class SignUpController {
 		boolean validated = this.signUpService.validateUserSignUp(signUpDTO);
 		if(validated) {
 			if(this.signUpService.saveSignUpInfo(signUpDTO)) {
-//				model.addAttribute("Signup_Msg", "Sign Up Successful!!");
 				return "/WEB-INF/pages/Login.jsp";
 			}else {
 				model.addAttribute("Signup_Msg", "Sign Up Not Successful!!");

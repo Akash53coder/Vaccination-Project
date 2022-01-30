@@ -11,7 +11,7 @@
 		.footer {
 			bottom: 0; 
 			margin-bottom: 0px; 
-			margin-top: 4%; 
+			margin-top: 5%; 
 			text-align: center; 
 			background-color: #374b62; 
 			padding-top: 10px; 
@@ -46,7 +46,7 @@
 	</head>
 	<body>
 		<h2 class="header" >Welcome	to Vaccination Website</h2>
-		<div class="container" style="margin-top:39px">
+		<div class="container" style="margin-top:29px">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4 signupBox">
 				<form action="signup.vaccine" method="POST">
@@ -59,7 +59,7 @@
 					</div>
 					<div class="form-group">
 						<label>Enter Phone.no</label>
-						<input type=tel name="phone" class="form-control">
+						<input type="tel" name="phone" class="form-control">
 						<span style="color:red;">${PhoneNotValid}</span>
 					</div>
 					<div class="form-check">
