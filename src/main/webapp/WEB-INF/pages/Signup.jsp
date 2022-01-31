@@ -59,7 +59,7 @@
 					</div>
 					<div class="form-group">
 						<label>Enter Phone.no</label>
-						<input type="tel" name="phone" class="form-control">
+						<input type="tel" name="phone" class="form-control" >
 						<span style="color:red;">${PhoneNotValid}</span>
 					</div>
 					<div class="form-check">

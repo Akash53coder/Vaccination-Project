@@ -58,5 +58,8 @@
 		<property name="locations"
 			value="/WEB-INF/classes/database.properties"></property>
 	</bean>
+	<bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<constructor-arg  name="strength" value="10" ></constructor-arg>
+	</bean>
 </beans>
 

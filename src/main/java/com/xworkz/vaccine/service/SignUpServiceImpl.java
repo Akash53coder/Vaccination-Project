@@ -1,18 +1,23 @@
 package com.xworkz.vaccine.service;
 
 import org.springframework.beans.BeanUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.xworkz.vaccine.dao.SignUpDAO;
 import com.xworkz.vaccine.dto.UserSignUpDTO;
 import com.xworkz.vaccine.entity.UserSignUpEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 public class SignUpServiceImpl implements SignUpService{
 
 	@Autowired
 	private SignUpDAO signUpDAO;
+	
+	@Autowired
+	private BCryptPasswordEncoder encrypt;
 	
 	@Override
 	public boolean validateUserSignUp(UserSignUpDTO userSignUpDTO) {
@@ -82,6 +87,7 @@ public class SignUpServiceImpl implements SignUpService{
 	public boolean saveSignUpInfo(UserSignUpDTO userSignUpDTO) {
 		UserSignUpEntity entity = new UserSignUpEntity();
 		BeanUtils.copyProperties(userSignUpDTO, entity);
+		entity.setPassword(encrypt.encode(userSignUpDTO.getcPassword()));
 		boolean dataSaved = this.signUpDAO.saveSignUpData(entity);
 		if(dataSaved) {
 			return true;
