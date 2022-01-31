@@ -12,7 +12,12 @@ import com.xworkz.vaccine.service.RegisternOTPService;
 @RequestMapping("/")
 public class RegisternOTPController {
 
-	public static String emailId;
+	private static String emailId;
+	
+	public String getEmailId() {
+		return RegisternOTPController.emailId;
+	}
+	
 
 	@Autowired
 	private RegisternOTPService registernOTPService;
@@ -45,7 +50,7 @@ public class RegisternOTPController {
 	public String verifyOTP(@RequestParam Integer otp, Model model) {
 		System.out.println("called verify otp()");
 		if (this.registernOTPService.validateVerifyOTP(otp)) {
-			if (this.registernOTPService.verifyOTP(RegisternOTPController.emailId, otp)) {
+			if (this.registernOTPService.verifyOTP(this.getEmailId(), otp)) {
 				System.out.println("otp varified");
 				model.addAttribute("OTP_Verified", "OTP Verified!!!");
 				return "/WEB-INF/pages/Signup.jsp";

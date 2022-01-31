@@ -53,6 +53,8 @@
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4 loginBox">
 				<form action="verifyotp.vaccine" method="POST">
+					<h5 style="color: green;">${Signup_Msg}</h5>
+					<h5 style="color: red;">${Signup_Succ_Msg}</h5>									
 					<h3 style="text-align:center">Vaccine Login</h3>
 					<div class="form-group">
 						<label>Enter EmailId</label>

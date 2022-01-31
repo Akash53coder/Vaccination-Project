@@ -3,8 +3,12 @@ package com.xworkz.vaccine.service;
 import org.springframework.beans.BeanUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.xworkz.vaccine.controller.RegisternOTPController;
+import com.xworkz.vaccine.controller.SignUpController;
 import com.xworkz.vaccine.dao.SignUpDAO;
 import com.xworkz.vaccine.dto.UserSignUpDTO;
 import com.xworkz.vaccine.entity.UserSignUpEntity;
@@ -18,6 +22,12 @@ public class SignUpServiceImpl implements SignUpService{
 	
 	@Autowired
 	private BCryptPasswordEncoder encrypt;
+	
+	@Autowired
+	private JavaMailSender mailSender;
+	
+	@Autowired
+	private RegisternOTPController otpController;
 	
 	@Override
 	public boolean validateUserSignUp(UserSignUpDTO userSignUpDTO) {
@@ -87,11 +97,41 @@ public class SignUpServiceImpl implements SignUpService{
 	public boolean saveSignUpInfo(UserSignUpDTO userSignUpDTO) {
 		UserSignUpEntity entity = new UserSignUpEntity();
 		BeanUtils.copyProperties(userSignUpDTO, entity);
-		entity.setPassword(encrypt.encode(userSignUpDTO.getcPassword()));
+		entity.setPassword(encrypt.encode(userSignUpDTO.getPassword()));
+		entity.setEmailId(otpController.getEmailId());
 		boolean dataSaved = this.signUpDAO.saveSignUpData(entity);
 		if(dataSaved) {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean sendSignupMail(String emailId) {
+		try {
+			String password = "";
+			if(encrypt.matches(SignUpController.password, this.getPassword(emailId))) {
+				password = SignUpController.password;
+			}
+			SimpleMailMessage mailMsg = new SimpleMailMessage();
+			mailMsg.setTo(emailId);
+			mailMsg.setSubject("Vaccine Signup Seccess");
+			mailMsg.setText("Account Created For Vaccination Registration and "+password+" is the Password "
+					+ "for Your Account To Sign In");
+			mailSender.send(mailMsg);
+			return true;
+		} catch (Exception exp) {
+			System.out.println("An Exception Occured " + exp.getMessage());
+		}
+		return false;
+	}
+
+	@Override
+	public String getPassword(String emailId) {
+		String dbPassword = this.signUpDAO.getPassword(emailId);
+		if(dbPassword!=null) {
+			return dbPassword;
+		}
+		return null;
 	}
 }

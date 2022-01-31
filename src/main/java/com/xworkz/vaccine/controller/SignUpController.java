@@ -2,6 +2,7 @@ package com.xworkz.vaccine.controller;
 
 
 import java.text.SimpleDateFormat;
+
 import java.util.Date;
 import java.util.Map;
 
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.xworkz.vaccine.dto.UserSignUpDTO;
-import com.xworkz.vaccine.service.RegisternOTPService;
 import com.xworkz.vaccine.service.SignUpService;
 
 @Controller
@@ -25,6 +25,11 @@ public class SignUpController {
 	@Autowired
 	private SignUpService signUpService;
 	
+	@Autowired
+	private RegisternOTPController otpController;
+	
+	public static String password;
+		
 	@InitBinder     
 	public void initBinder(WebDataBinder binder){
 	     binder.registerCustomEditor(Date.class,     
@@ -34,10 +39,18 @@ public class SignUpController {
 	@RequestMapping("/signup.vaccine")
 	public String singUpUser(@ModelAttribute UserSignUpDTO signUpDTO , Model model) {		
 		System.out.println("this is singupdata"+signUpDTO);
+		SignUpController.password = signUpDTO.getPassword();
 		boolean validated = this.signUpService.validateUserSignUp(signUpDTO);
 		if(validated) {
 			if(this.signUpService.saveSignUpInfo(signUpDTO)) {
-				return "/WEB-INF/pages/Login.jsp";
+				if(this.signUpService.sendSignupMail(this.otpController.getEmailId())) {					
+					model.addAttribute("Signup_Succ_Msg", "Sign Up Successfull, A Mail Sent to Your MailId ");
+					return "/WEB-INF/pages/Login.jsp";
+				}else {
+					model.addAttribute("Signup_Msg", "Sign Up Not Successfull");
+					return "/WEB-INF/pages/Signup.jsp";
+				}
+				
 			}else {
 				model.addAttribute("Signup_Msg", "Sign Up Not Successful!!");
 				return "/WEB-INF/pages/Signup.jsp";

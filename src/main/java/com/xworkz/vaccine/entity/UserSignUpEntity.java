@@ -31,18 +31,21 @@ public class UserSignUpEntity {
 	@Column(name = "user_dob")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dob;
+	@Column(name = "user_emailId")
+	private String emailId;
 	
 	public UserSignUpEntity() {
 		super();
 	}
 
-	public UserSignUpEntity(String name, long phone, String gender, String password, Date dob) {
+	public UserSignUpEntity(String name, long phone, String gender, String password, Date dob, String emailId) {
 		super();
 		this.name = name;
 		this.phone = phone;
 		this.gender = gender;
 		this.password = password;
 		this.dob = dob;
+		this.emailId = emailId;
 	}
 
 	public int getId() {
@@ -92,12 +95,20 @@ public class UserSignUpEntity {
 	public void setDob(Date dob) {
 		this.dob = dob;
 	}
+	
+	
+	public String getEmailId() {
+		return emailId;
+	}
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
 
 	@Override
 	public String toString() {
 		return "UserSignUpEntity [id=" + id + ", name=" + name + ", phone=" + phone + ", gender=" + gender
-				+ ", password=" + password + ", dob=" + dob + "]";
+				+ ", password=" + password + ", dob=" + dob + ", emailId=" + emailId + "]";
 	}
-		
 	
 }
