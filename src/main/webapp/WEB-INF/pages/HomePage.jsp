@@ -13,7 +13,7 @@
 		.footer {
 			bottom: 0; 
 			margin-bottom: 0px; 
-			margin-top: 31%; 
+			margin-top: 23%; 
 			text-align: center; 
 			background-color: #374b62; 
 			padding-top: 10px; 
@@ -30,38 +30,26 @@
 			width: 100%; 
 			color: white;
 		}
-		.verify_btn{
-			background: linear-gradient(to right, #642b73, #c6426e);
+		.login_btn{
+			background-color: #17f9f2;
+			background-image: linear-gradient(315deg, #17f9f2 0%, #b0f9a9 74%);	
 			padding: 8px;
 			width: 100px;
-			color:white;
+			color:black;
 			border:none;
-			outline: none;
-			box-shadow:0px 2px 8px 0px rgba(255,97,98,0.46) !important;
+			margin-bottom:30px;
+			margin-top:12px;
+		}
+		.loginBox{
+			box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+			margin-top:30px;
 		}
 	</style>
 	</head>
 	<body>
 		<h2 class="header" >Welcome
 		to Vaccination Website</h2>
-		<div class="container" style="margin-top:39px">
-			<div class="col-sm-4"></div>
-			<div class="col-sm-4">
-				<form action="verifyotp.vaccine" method="POST">
-					<h3 style="text-align:center">OTP Verification</h3>
-					<h4 style="color: green; margin-left: 30px; text-align: center;">${OTP_Msg}</h4>
-					<h4 style="color: green; margin-left: 30px; text-align: center;">${OTP_Verified}</h4>
-					<h4 style="color: red; margin-left: 30px; text-align: center;">${OTP_Invalid}</h4>
-					<div class="form-group">
-						<label>Enter OTP</label>
-						<input type="text" name="otp" class="form-control">
-					</div>
-					<button type="submit" class="btn verify_btn">Verify OTP</button>
-					<span><a href="resendotpmail.vaccine" style="text-decoration:underline;margin-left:10px;cursor:pointer;font-weight:bold">Resend OTP</a></span>				
-				</form>
-			</div>
-			<div class="col-sm-4"></div>
-		</div>
+			<h1>Welcome to Home Page</h1>
 		<div class="footer">
 			<b>@2021 CopyRight Vaccine-App</b>
 			<br><b>By Akash-XWorkz</b>

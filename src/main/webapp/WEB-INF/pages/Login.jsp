@@ -13,7 +13,7 @@
 		.footer {
 			bottom: 0; 
 			margin-bottom: 0px; 
-			margin-top: 23%; 
+			margin-top: 21%; 
 			text-align: center; 
 			background-color: #374b62; 
 			padding-top: 10px; 
@@ -39,6 +39,7 @@
 			border:none;
 			margin-bottom:30px;
 			margin-top:12px;
+			outline: none;
 		}
 		.loginBox{
 			box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
@@ -52,13 +53,14 @@
 		<div class="container" style="margin-top:39px">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4 loginBox">
-				<form action="verifyotp.vaccine" method="POST">
+				<form action="login.vaccine" method="POST">
 					<h5 style="color: green;">${Signup_Msg}</h5>
-					<h5 style="color: red;">${Signup_Succ_Msg}</h5>									
+					<h5 style="color: green;">${Signup_Succ_Msg}</h5>
+					<h5 style="color: red;">${Login_Fail}</h5>									
 					<h3 style="text-align:center">Vaccine Login</h3>
 					<div class="form-group">
-						<label>Enter EmailId</label>
-						<input type="text" name="emailId" class="form-control">
+						<label>Enter User Name</label>
+						<input type="text" name="userName" class="form-control">
 					</div>
 					<div class="form-group">
 						<label>Enter Password</label>

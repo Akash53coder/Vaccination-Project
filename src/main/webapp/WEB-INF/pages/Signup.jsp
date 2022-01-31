@@ -37,6 +37,7 @@
 			box-shadow:0px 1px 6px 0px rgba(255,97,98,0.46) !important;
 			margin-bottom:30px;
 			margin-top:18px;
+			outline: none;
 		}
 		.signupBox{
 			box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
