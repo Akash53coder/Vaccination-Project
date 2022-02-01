@@ -11,34 +11,48 @@ public class LoginServiceImpl implements LoginService {
 
 	@Autowired
 	private BCryptPasswordEncoder encrypt;
-	
+
+	public static int loginAttempt = 0;
+
 	@Autowired
 	private LoginDAO loginDAO;
+
 	@Override
 	public boolean validateLoginInfo(String userName, String password) {
-		boolean flag= false;
-		if(!userName.isBlank() && !userName.isEmpty() && userName!=null) {
+		boolean flag = false;
+		if (!userName.isBlank() && !userName.isEmpty() && userName != null) {
 			flag = true;
-		}else {
-			flag=false;
+		} else {
+			flag = false;
 			return flag;
 		}
-		if(!password.isBlank() && !password.isEmpty() && password!=null) {
+		if (!password.isBlank() && !password.isEmpty() && password != null) {
 			flag = true;
-		}else {
-			flag=false;
+		} else {
+			flag = false;
 			return flag;
 		}
 		return flag;
 	}
-	
+
 	@Override
-	public  boolean verifyUser(String userName, String password) {
+	public boolean verifyUser(String userName, String password) {
 		String dbPassword = this.loginDAO.isUserExist(userName);
-		if(this.encrypt.matches(password, dbPassword)) {
+		if (this.encrypt.matches(password, dbPassword)) {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean loginAttemptExceeded(String userName) {
+		LoginServiceImpl.loginAttempt = this.loginDAO.updateLoginAttempt(userName, LoginServiceImpl.loginAttempt);
+		if (LoginServiceImpl.loginAttempt == 3) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 }

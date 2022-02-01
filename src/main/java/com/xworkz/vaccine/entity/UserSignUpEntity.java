@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -33,12 +34,14 @@ public class UserSignUpEntity {
 	private Date dob;
 	@Column(name = "user_emailId")
 	private String emailId;
+	@Column(name="login_attempt")
+	private int loginAttempt;
 	
 	public UserSignUpEntity() {
 		super();
 	}
 
-	public UserSignUpEntity(String name, long phone, String gender, String password, Date dob, String emailId) {
+	public UserSignUpEntity(String name, long phone, String gender, String password, Date dob, String emailId, int loginAttempt) {
 		super();
 		this.name = name;
 		this.phone = phone;
@@ -46,6 +49,7 @@ public class UserSignUpEntity {
 		this.password = password;
 		this.dob = dob;
 		this.emailId = emailId;
+		this.loginAttempt = loginAttempt;
 	}
 
 	public int getId() {
@@ -104,11 +108,23 @@ public class UserSignUpEntity {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
+		
+	
+	public int getLoginAttempt() {
+		return loginAttempt;
+	}
+
+	public void setLoginAttempt(int loginAttempt) {
+		this.loginAttempt = loginAttempt;
+	}
 
 	@Override
 	public String toString() {
 		return "UserSignUpEntity [id=" + id + ", name=" + name + ", phone=" + phone + ", gender=" + gender
-				+ ", password=" + password + ", dob=" + dob + ", emailId=" + emailId + "]";
+				+ ", password=" + password + ", dob=" + dob + ", emailId=" + emailId + ", loginAttempt=" + loginAttempt
+				+ "]";
 	}
+
+	
 	
 }

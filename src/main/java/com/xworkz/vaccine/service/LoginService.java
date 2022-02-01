@@ -8,4 +8,6 @@ public interface LoginService {
 	boolean validateLoginInfo(String userName, String password);
 
 	boolean verifyUser(String userName, String password);
+		
+	boolean loginAttemptExceeded(String userName);
 }

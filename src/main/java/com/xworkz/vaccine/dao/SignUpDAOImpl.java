@@ -23,6 +23,7 @@ public class SignUpDAOImpl implements SignUpDAO {
 			session = factory.openSession();
 			session.getTransaction().begin();
 			session.save(userSignUpEntity);
+			System.out.println("---------------------this is login attempt "+userSignUpEntity.getLoginAttempt());
 			session.getTransaction().commit();
 			return true;
 		} catch (HibernateException exp) {

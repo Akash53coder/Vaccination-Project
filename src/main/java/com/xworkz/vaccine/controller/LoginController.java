@@ -22,6 +22,10 @@ public class LoginController {
 			if(this.loginService.verifyUser(userName, password)) {
 				return "/WEB-INF/pages/HomePage.jsp";
 			}else {
+				if(this.loginService.loginAttemptExceeded(userName)) {
+					model.addAttribute("Login_Fail", "Login Attempt Exceeded, Account Blocked");
+					return "/WEB-INF/pages/Login.jsp";
+				}
 				model.addAttribute("Login_Fail", "Invalid Credentials");
 				return "/WEB-INF/pages/Login.jsp";			
 			}
