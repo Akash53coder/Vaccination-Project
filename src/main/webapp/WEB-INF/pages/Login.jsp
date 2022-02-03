@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -67,6 +66,9 @@
 						<input type="text" name="password" class="form-control">
 					</div>					
 					<button type="submit" class="btn login_btn">Sign in</button>
+					<c:if test="${Show_Reset_Link}">
+					<span><a href="resendotpmail.vaccine" style="text-decoration:underline;margin-left:10px;cursor:pointer;font-weight:bold">Reset Password</a></span>	
+					</c:if>				
 				</form>
 			</div>
 			<div class="col-sm-4"></div>

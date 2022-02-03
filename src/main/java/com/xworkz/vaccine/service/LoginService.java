@@ -10,4 +10,6 @@ public interface LoginService {
 	boolean verifyUser(String userName, String password);
 		
 	boolean loginAttemptExceeded(String userName);
+	
+	boolean checkloginAttemptExceeded(String userName);
 }

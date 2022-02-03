@@ -11,27 +11,35 @@ import com.xworkz.vaccine.service.LoginService;
 @Controller
 @RequestMapping("/")
 public class LoginController {
-	
+
 	@Autowired
 	private LoginService loginService;
-	
+
 	@RequestMapping("/login.vaccine")
-	public String loginUser(@RequestParam String userName, @RequestParam String password,Model model) {
+	public String loginUser(@RequestParam String userName, @RequestParam String password, Model model) {
 		boolean validated = this.loginService.validateLoginInfo(userName, password);
-		if(validated) {
-			if(this.loginService.verifyUser(userName, password)) {
-				return "/WEB-INF/pages/HomePage.jsp";
-			}else {
-				if(this.loginService.loginAttemptExceeded(userName)) {
-					model.addAttribute("Login_Fail", "Login Attempt Exceeded, Account Blocked");
+		if (validated) {
+			if (this.loginService.checkloginAttemptExceeded(userName)) {
+				model.addAttribute("Login_Fail", "Your Account has Blocked, Please Reset Password");
+				model.addAttribute("Show_Reset_Link", "true");
+				return "/WEB-INF/pages/Login.jsp";
+			} else {
+				if (this.loginService.verifyUser(userName, password)) {
+					return "/WEB-INF/pages/HomePage.jsp";
+				} else {
+					if (this.loginService.loginAttemptExceeded(userName)) {
+						model.addAttribute("Login_Fail", "Attempt Exceeded, Account Blocked. Reset Password");
+						model.addAttribute("Show_Reset_Link", "true");
+						return "/WEB-INF/pages/Login.jsp";
+					}
+					model.addAttribute("Login_Fail", "Invalid Credentials");
 					return "/WEB-INF/pages/Login.jsp";
 				}
-				model.addAttribute("Login_Fail", "Invalid Credentials");
-				return "/WEB-INF/pages/Login.jsp";			
 			}
-		}else {
+
+		} else {
 			model.addAttribute("Login_Fail", "Invalid Credentials");
-			return "/WEB-INF/pages/Login.jsp";			
+			return "/WEB-INF/pages/Login.jsp";
 		}
 	}
 

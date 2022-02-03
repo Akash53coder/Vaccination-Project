@@ -38,8 +38,10 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public boolean verifyUser(String userName, String password) {
 		String dbPassword = this.loginDAO.isUserExist(userName);
-		if (this.encrypt.matches(password, dbPassword)) {
-			return true;
+		if (dbPassword != null) {
+			if (this.encrypt.matches(password, dbPassword)) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -53,6 +55,15 @@ public class LoginServiceImpl implements LoginService {
 			return false;
 		}
 
+	}
+
+	@Override
+	public boolean checkloginAttemptExceeded(String userName) {
+		int attempt = this.loginDAO.getUpdatedAttempt(userName);
+		if(attempt==3) {
+			return true;
+		}
+		return false;
 	}
 
 }
