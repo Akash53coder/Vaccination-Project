@@ -12,7 +12,7 @@ import com.xworkz.vaccine.service.RegisternOTPService;
 @RequestMapping("/")
 public class RegisternOTPController {
 
-	private static String emailId;
+	public static String emailId;
 	
 	public String getEmailId() {
 		return RegisternOTPController.emailId;

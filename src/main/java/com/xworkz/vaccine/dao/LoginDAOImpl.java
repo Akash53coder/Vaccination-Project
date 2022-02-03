@@ -1,6 +1,7 @@
 package com.xworkz.vaccine.dao;
 
 import org.hibernate.HibernateException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -41,7 +42,7 @@ public class LoginDAOImpl implements LoginDAO {
 		Session session = null;
 		try {
 			String passwordNullCheck = this.isUserExist(userName);
-			if(passwordNullCheck!=null) {
+			if (passwordNullCheck != null) {
 				int attempt = currentAttempt + 1;
 				session = factory.openSession();
 				session.getTransaction().begin();
@@ -52,9 +53,7 @@ public class LoginDAOImpl implements LoginDAO {
 				query.executeUpdate();
 				session.getTransaction().commit();
 				int updatedAttempt = this.getUpdatedAttempt(userName);
-				return updatedAttempt;				
-			}else {
-				return 0;
+				return updatedAttempt;
 			}
 
 		} catch (HibernateException exp) {
@@ -73,16 +72,15 @@ public class LoginDAOImpl implements LoginDAO {
 		Session session = null;
 		try {
 			String passwordNullCheck = this.isUserExist(userName);
-			if(passwordNullCheck!=null) {
+			if (passwordNullCheck != null) {
 				session = factory.openSession();
 				String hql = "SELECT loginAttempt FROM UserSignUpEntity WHERE name=:user_name";
 				Query query = session.createQuery(hql);
 				query.setParameter("user_name", userName);
 				int updatedAttempt = (int) query.uniqueResult();
 				System.out.println("login attempt updated is " + updatedAttempt);
-				return updatedAttempt;				
+				return updatedAttempt;
 			}
-			return 0;
 		} catch (HibernateException exp) {
 			System.out.println("An exception occured " + exp.getMessage());
 		} finally {
@@ -92,6 +90,37 @@ public class LoginDAOImpl implements LoginDAO {
 			}
 		}
 		return 0;
+	}
+
+	@Override
+	public boolean resetPassword(String password, String emailId) {
+		Session session = null;
+		try {
+			session = factory.openSession();
+			session.getTransaction().begin();
+			String hql = "UPDATE UserSignUpEntity SET password=:password WHERE emailId=:emailId";
+			Query query = session.createQuery(hql);
+			query.setParameter("emailId", emailId);
+			query.setParameter("password", password);
+			int rowsUpdated = query.executeUpdate();
+			if(rowsUpdated>=1) {
+				String hqlLoginAttempt = "UPDATE UserSignUpEntity SET loginAttempt=0 WHERE emailId=:emailId";
+				Query query1 = session.createQuery(hqlLoginAttempt);
+				query1.setParameter("emailId", emailId);
+				query1.executeUpdate();
+			}
+			session.getTransaction().commit();
+			return true;
+
+		} catch (HibernateException exp) {
+			System.out.println("An exception occured " + exp.getMessage());
+		} finally {
+			if (session != null) {
+				session.close();
+				System.out.println("session closed");
+			}
+		}
+		return false;
 	}
 
 }

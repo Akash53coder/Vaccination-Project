@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.xworkz.vaccine.controller.RegisternOTPController;
 import com.xworkz.vaccine.dao.LoginDAO;
 
 @Service
@@ -60,7 +61,32 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public boolean checkloginAttemptExceeded(String userName) {
 		int attempt = this.loginDAO.getUpdatedAttempt(userName);
-		if(attempt==3) {
+		if (attempt == 3) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean validateResetPasswords(String password, String confirmPassword) {
+		boolean flag = false;
+		if (password != null && confirmPassword != null) {
+			if (!password.isBlank() && !password.isEmpty()) {
+				if (!confirmPassword.isBlank() && !confirmPassword.isEmpty()) {
+					if (password.equals(confirmPassword)) {
+						return true;
+					}
+				}
+
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean resetPassword(String password,String emailId) {
+		String encPwd = encrypt.encode(password);
+		if(this.loginDAO.resetPassword(encPwd, emailId)) {
 			return true;
 		}
 		return false;

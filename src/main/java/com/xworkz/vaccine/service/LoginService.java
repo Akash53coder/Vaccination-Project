@@ -12,4 +12,8 @@ public interface LoginService {
 	boolean loginAttemptExceeded(String userName);
 	
 	boolean checkloginAttemptExceeded(String userName);
+	
+	boolean validateResetPasswords(String password, String confirmPassword);
+	
+	boolean resetPassword(String password,String emailId);
 }

@@ -13,6 +13,9 @@ import com.xworkz.vaccine.service.LoginService;
 public class LoginController {
 
 	@Autowired
+	private RegisternOTPController otpController;
+
+	@Autowired
 	private LoginService loginService;
 
 	@RequestMapping("/login.vaccine")
@@ -41,6 +44,33 @@ public class LoginController {
 			model.addAttribute("Login_Fail", "Invalid Credentials");
 			return "/WEB-INF/pages/Login.jsp";
 		}
+	}
+
+	@RequestMapping("/resetpasswordpage.vaccine")
+	public String resetPasswordPageRedirect() {
+		return "/WEB-INF/pages/ResetPassword.jsp";
+	}
+	
+	@RequestMapping("/loginpage.vaccine")
+	public String loginPageRedirect() {
+		return "/WEB-INF/pages/Login.jsp";
+	}
+	
+
+	@RequestMapping("/resetpassword.vaccine")
+	public String resetPassword(@RequestParam String password, @RequestParam String confirmPassword, Model model) {
+		if (this.loginService.validateResetPasswords(password, confirmPassword)) {
+			if (this.loginService.resetPassword(password, this.otpController.getEmailId())) {
+				model.addAttribute("Password_Reset_Success", "Password Reset, Please Login!");
+				model.addAttribute("login_link", "true");
+				return "/WEB-INF/pages/ResetPassword.jsp";
+			}
+			return "";
+		} else {
+			model.addAttribute("Password_Invalid", "Password Invalid");
+			return "/WEB-INF/pages/ResetPassword.jsp";
+		}
+
 	}
 
 }
