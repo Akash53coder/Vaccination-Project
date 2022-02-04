@@ -8,6 +8,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.xworkz.vaccine.service.LoginServiceImpl;
+
 @Repository
 public class LoginDAOImpl implements LoginDAO {
 
@@ -104,6 +106,7 @@ public class LoginDAOImpl implements LoginDAO {
 			query.setParameter("password", password);
 			int rowsUpdated = query.executeUpdate();
 			if(rowsUpdated>=1) {
+				LoginServiceImpl.loginAttempt=0;
 				String hqlLoginAttempt = "UPDATE UserSignUpEntity SET loginAttempt=0 WHERE emailId=:emailId";
 				Query query1 = session.createQuery(hqlLoginAttempt);
 				query1.setParameter("emailId", emailId);
