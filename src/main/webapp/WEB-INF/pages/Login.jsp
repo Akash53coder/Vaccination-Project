@@ -47,8 +47,7 @@
 	</style>
 	</head>
 	<body>
-		<h2 class="header" >Welcome
-		to Vaccination Website</h2>
+		<h2 class="header">Welcome to Vaccination Website</h2>
 		<div class="container" style="margin-top:39px">
 			<div class="col-sm-4"></div>
 			<div class="col-sm-4 loginBox">

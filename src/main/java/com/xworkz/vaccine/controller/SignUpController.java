@@ -1,6 +1,5 @@
 package com.xworkz.vaccine.controller;
 
-
 import java.text.SimpleDateFormat;
 
 import java.util.Date;
@@ -24,39 +23,38 @@ public class SignUpController {
 
 	@Autowired
 	private SignUpService signUpService;
-	
+
 	@Autowired
 	private RegisternOTPController otpController;
-	
+
 	public static String password;
-		
-	@InitBinder     
-	public void initBinder(WebDataBinder binder){
-	     binder.registerCustomEditor(Date.class,     
-	    new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));   
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true, 10));
 	}
-	
+
 	@RequestMapping("/signup.vaccine")
-	public String singUpUser(@ModelAttribute UserSignUpDTO signUpDTO , Model model) {		
-		System.out.println("this is singupdata"+signUpDTO);
+	public String singUpUser(@ModelAttribute UserSignUpDTO signUpDTO, Model model) {
+		System.out.println("this is singupdata" + signUpDTO);
 		SignUpController.password = signUpDTO.getPassword();
 		boolean validated = this.signUpService.validateUserSignUp(signUpDTO);
-		if(validated) {
-			if(this.signUpService.saveSignUpInfo(signUpDTO)) {
-				if(this.signUpService.sendSignupMail(this.otpController.getEmailId())) {					
+		if (validated) {
+			if (this.signUpService.saveSignUpInfo(signUpDTO)) {
+				if (this.signUpService.sendSignupMail(this.otpController.getEmailId())) {
 					model.addAttribute("Signup_Succ_Msg", "Sign Up Successfull, A Mail Sent to Your MailId ");
 					return "/WEB-INF/pages/Login.jsp";
-				}else {
+				} else {
 					model.addAttribute("Signup_Msg", "Sign Up Not Successfull");
 					return "/WEB-INF/pages/Signup.jsp";
 				}
-				
-			}else {
+
+			} else {
 				model.addAttribute("Signup_Msg", "Sign Up Not Successful!!");
 				return "/WEB-INF/pages/Signup.jsp";
 			}
-		}else {
-			Map<String,String> map = this.signUpService.errorMap;
+		} else {
+			Map<String, String> map = this.signUpService.errorMap;
 			model.addAttribute("NameNotValid", map.get("Name_Invalid"));
 			model.addAttribute("PhoneNotValid", map.get("Phone_Invalid"));
 			model.addAttribute("PasswordNotValid", map.get("Password_Invalid"));
@@ -66,7 +64,8 @@ public class SignUpController {
 			model.addAttribute("GenderNotInvalid", map.get("Gender_Invalid"));
 			return "/WEB-INF/pages/Signup.jsp";
 		}
-		
+
 	}
-	
+
+
 }

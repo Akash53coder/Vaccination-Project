@@ -31,6 +31,7 @@
 			<list>
 				<value>com.xworkz.vaccine.entity.UserOTPEntity</value>
 				<value>com.xworkz.vaccine.entity.UserSignUpEntity</value>
+				<value>com.xworkz.vaccine.entity.AddMemberEntity</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -95,21 +95,22 @@ public class LoginDAOImpl implements LoginDAO {
 	}
 
 	@Override
-	public boolean resetPassword(String password, String emailId) {
+	public boolean resetPassword(String password, String userName,int loginAttempt) {
 		Session session = null;
 		try {
+			System.out.println("this is userName ----------"+userName);
 			session = factory.openSession();
 			session.getTransaction().begin();
-			String hql = "UPDATE UserSignUpEntity SET password=:password WHERE emailId=:emailId";
+			String hql = "UPDATE UserSignUpEntity SET password=:password WHERE name=:userName";
 			Query query = session.createQuery(hql);
-			query.setParameter("emailId", emailId);
+			query.setParameter("userName", userName);
 			query.setParameter("password", password);
 			int rowsUpdated = query.executeUpdate();
 			if(rowsUpdated>=1) {
-				LoginServiceImpl.loginAttempt=0;
-				String hqlLoginAttempt = "UPDATE UserSignUpEntity SET loginAttempt=0 WHERE emailId=:emailId";
+				String hqlLoginAttempt = "UPDATE UserSignUpEntity SET loginAttempt=:loginAttempt WHERE name=:userName";
 				Query query1 = session.createQuery(hqlLoginAttempt);
-				query1.setParameter("emailId", emailId);
+				query1.setParameter("loginAttempt", loginAttempt);
+				query1.setParameter("userName", userName);
 				query1.executeUpdate();
 			}
 			session.getTransaction().commit();

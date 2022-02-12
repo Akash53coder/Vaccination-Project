@@ -49,8 +49,8 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public boolean loginAttemptExceeded(String userName) {
-		LoginServiceImpl.loginAttempt = this.loginDAO.updateLoginAttempt(userName, LoginServiceImpl.loginAttempt);
-		if (LoginServiceImpl.loginAttempt == 3) {
+		loginAttempt = this.loginDAO.updateLoginAttempt(userName, loginAttempt);
+		if (loginAttempt == 3) {
 			return true;
 		} else {
 			return false;
@@ -84,9 +84,10 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public boolean resetPassword(String password,String emailId) {
+	public boolean resetPassword(String password,String userName) {
+		loginAttempt=0;
 		String encPwd = encrypt.encode(password);
-		if(this.loginDAO.resetPassword(encPwd, emailId)) {
+		if(this.loginDAO.resetPassword(encPwd, userName, loginAttempt)) {
 			return true;
 		}
 		return false;

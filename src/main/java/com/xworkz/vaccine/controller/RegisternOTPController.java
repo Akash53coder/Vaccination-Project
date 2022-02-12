@@ -13,11 +13,10 @@ import com.xworkz.vaccine.service.RegisternOTPService;
 public class RegisternOTPController {
 
 	public static String emailId;
-	
+
 	public String getEmailId() {
 		return RegisternOTPController.emailId;
 	}
-	
 
 	@Autowired
 	private RegisternOTPService registernOTPService;
@@ -81,5 +80,6 @@ public class RegisternOTPController {
 		return "/WEB-INF/pages/Verifyotp.jsp";
 
 	}
+
 
 }

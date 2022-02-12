@@ -15,5 +15,5 @@ public interface LoginService {
 	
 	boolean validateResetPasswords(String password, String confirmPassword);
 	
-	boolean resetPassword(String password,String emailId);
+	boolean resetPassword(String password,String userName);
 }

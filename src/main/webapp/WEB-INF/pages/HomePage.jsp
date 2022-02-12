@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -13,7 +12,7 @@
 		.footer {
 			bottom: 0; 
 			margin-bottom: 0px; 
-			margin-top: 23%; 
+			margin-top: 34.5%; 
 			text-align: center; 
 			background-color: #374b62; 
 			padding-top: 10px; 
@@ -47,9 +46,59 @@
 	</style>
 	</head>
 	<body>
-		<h2 class="header" >Welcome
-		to Vaccination Website</h2>
-			<h1>Welcome to Home Page</h1>
+		<h2 class="header">Welcome to Vaccination Website
+			<span>
+				<h4 style="color:white;margin-right:200px;" class="pull-right">${userName}</h4>
+				<button type="submit" class="btn btn-success pull-right;" style="margin-top: -9px !important">Login</button>				
+			</span>	
+		</h2>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
+					<a href="getAllAddedMember.vaccine" style="color:black"><button class="btn btn-block btn-secondary" style="margin-top:30px">See Member</button></a>								
+				</div>
+				<div class="col-sm-4"></div>
+				<div class="col-sm-4">
+					<a href="redirectaddmember.vaccine" style="color:black"><button class="btn btn-block btn-secondary" style="margin-top:30px">Add Member</button></a>				
+				</div>
+			</div>
+		</div>
+		
+		<div class="container" style="margin-top:40px">
+			<div class="row">
+			<div class="col-lg-12">
+				<div class="container" style="margin-top: 8px">
+					<table class="table table-bordered table-responsive">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Gender</th>
+								<th>Year of Birth</th>
+								<th>Photo Id</th>
+								<th>Photo Id no</th>
+								<th>Dose</th>
+								<th>vaccine type</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${ListOfMembers}" var="addedmember">
+								<tr>
+									<td>${addedmember.userName}</td>
+									<td>${addedmember.gender}</td>
+									<td>${addedmember.yob}</td>
+									<td>${addedmember.photo_id_proof}</td>
+									<td>${addedmember.photo_id_no}</td>
+									<td>${addedmember.dose}</td>
+									<td>${addedmember.vaccine_type}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>			
+		</div>
+		</div>
+			
 		<div class="footer">
 			<b>@2021 CopyRight Vaccine-App</b>
 			<br><b>By Akash-XWorkz</b>
