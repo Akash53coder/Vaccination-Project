@@ -1,5 +1,6 @@
 package com.xworkz.vaccine.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,9 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
-	
-	public HttpSession session;
-	
+		
 	@RequestMapping("/login.vaccine")
-	public String loginUser(@RequestParam String userName, @RequestParam String password, Model model) {
+	public String loginUser(@RequestParam String userName, @RequestParam String password, Model model,HttpServletRequest request) {
 		boolean validated = this.loginService.validateLoginInfo(userName, password);
 		if (validated) {
 			LoginController.userName = userName;
@@ -32,7 +31,8 @@ public class LoginController {
 				return "/WEB-INF/pages/Login.jsp";
 			} else {
 				if (this.loginService.verifyUser(userName, password)) {
-					session.setAttribute("userName", LoginController.userName);
+					HttpSession session = request.getSession(true);
+					session.setAttribute("userName", userName);
 					model.addAttribute("userName", userName);
 					return "/WEB-INF/pages/HomePage.jsp";
 				} else {
@@ -89,4 +89,10 @@ public class LoginController {
 		return "/WEB-INF/pages/AddMember.jsp";
 	}
 
+	@RequestMapping("/logout.vaccine")
+	public String logoutUser(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "/WEB-INF/pages/Login.jsp";
+	}
 }

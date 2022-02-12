@@ -46,10 +46,10 @@
 	</style>
 	</head>
 	<body>
-		<h2 class="header">Welcome to Vaccination Website
-			<span>
-				<h4 style="color:white;margin-right:200px;" class="pull-right">${userName}</h4>
-				<button type="submit" class="btn btn-success pull-right;" style="margin-top: -9px !important">Login</button>				
+		<h2 class="header" style="margin-right:400px">Welcome to Vaccination Website
+			<span class="pull-right">
+				<h4 style="color:white;margin-right:100px;" >${userName}</h4>
+				<a href="logout.vaccine"><button type="submit" class="btn btn-danger" style="margin-top: -79px;margin-left:80px;margin-right: 25px;">Logout</button></a>			
 			</span>	
 		</h2>
 		<div class="container">

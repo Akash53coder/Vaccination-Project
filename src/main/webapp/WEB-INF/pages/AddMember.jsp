@@ -30,7 +30,7 @@
 		}
 		.signup_btn{
 			background-color: #e3efe8;
-background-image: linear-gradient(315deg, #e3efe8 0%, #96a7cf 74%);
+			background-image: linear-gradient(315deg, #e3efe8 0%, #96a7cf 74%);
 			padding: 8px;
 			color:white;
 			border:none;
@@ -45,11 +45,11 @@ background-image: linear-gradient(315deg, #e3efe8 0%, #96a7cf 74%);
 	</style>
 	</head>
 	<body>
-		<h2 class="header">Welcome to Vaccination Website
+		<h2 class="header" style="margin-right:400px">Welcome to Vaccination Website
 			<form action="redirectlogin.vaccine" method="GET">
-			<span>
-				<h4 style="color:white">${userName}</h4>
-				<button type="submit" class="btn btn-success pull-right" style="margin-top: -39px !important;margin-right: 20px;">Login</button>				
+			<span class="pull-right">
+				<h4 style="color:white;margin-right:110px;margin-top: -24px;">${userName}</h4>
+				<a href="logout.vaccine"><button type="submit" class="btn btn-danger" style="margin-top: -86px;margin-left:80px;margin-right: 25px;">Logout</button></a>					
 			</span>
 			</form>	
 		</h2>		
@@ -111,7 +111,7 @@ background-image: linear-gradient(315deg, #e3efe8 0%, #96a7cf 74%);
 						<label>Vaccine Type</label>
 						<select name="vaccine_type" class="form-control">
 							<option>--select--</option>
-							<option value="aadhar">Covishield</option>
+							<option value="Covishield">Covishield</option>
 							<option value="covaxin">Covaxin</option>
 							<option value="sputnik">Sputnik</option>
 						</select>
