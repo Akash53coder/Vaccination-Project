@@ -37,11 +37,12 @@ public class RegisternOTPController {
 				return "Verifyotp";
 			} else {
 				model.addAttribute("OTP_Not_Sent", "Sorry!! OTP Not Sent");
-				return "Register";
+				return "../../Register";
 			}
 		} else {
 			model.addAttribute("Invalid_EmailId", "Invalid EmailId Entered");
-			return "Register";
+			//before view resolver it was return "/Register.jsp";
+			return "../../Register";
 		}
 	}
 
