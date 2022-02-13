@@ -43,15 +43,15 @@ public class SignUpController {
 			if (this.signUpService.saveSignUpInfo(signUpDTO)) {
 				if (this.signUpService.sendSignupMail(this.otpController.getEmailId())) {
 					model.addAttribute("Signup_Succ_Msg", "Sign Up Successfull, A Mail Sent to Your MailId ");
-					return "/WEB-INF/pages/Login.jsp";
+					return "Login";
 				} else {
 					model.addAttribute("Signup_Msg", "Sign Up Not Successfull");
-					return "/WEB-INF/pages/Signup.jsp";
+					return "Signup";
 				}
 
 			} else {
 				model.addAttribute("Signup_Msg", "Sign Up Not Successful!!");
-				return "/WEB-INF/pages/Signup.jsp";
+				return "Signup";
 			}
 		} else {
 			Map<String, String> map = this.signUpService.errorMap;
@@ -62,7 +62,7 @@ public class SignUpController {
 			model.addAttribute("PasswordNotMatched", map.get("Password_Mismatch"));
 			model.addAttribute("DobNotInvalid", map.get("DOB_Invalid"));
 			model.addAttribute("GenderNotInvalid", map.get("Gender_Invalid"));
-			return "/WEB-INF/pages/Signup.jsp";
+			return "Signup";
 		}
 
 	}

@@ -28,38 +28,38 @@ public class LoginController {
 			if (this.loginService.checkloginAttemptExceeded(userName)) {
 				model.addAttribute("Login_Fail", "Your Account has Blocked, Please Reset Password");
 				model.addAttribute("Show_Reset_Link", "true");
-				return "/WEB-INF/pages/Login.jsp";
+				return "Login";
 			} else {
 				if (this.loginService.verifyUser(userName, password)) {
 					HttpSession session = request.getSession(true);
 					session.setAttribute("userName", userName);
 					model.addAttribute("userName", userName);
-					return "/WEB-INF/pages/HomePage.jsp";
+					return "HomePage";
 				} else {
 					if (this.loginService.loginAttemptExceeded(userName)) {
 						model.addAttribute("Login_Fail", "Login Attempt Exceeded, Reset Password");
 						model.addAttribute("Show_Reset_Link", "true");
-						return "/WEB-INF/pages/Login.jsp";
+						return "Login";
 					}
 					model.addAttribute("Login_Fail", "Invalid Credentials");
-					return "/WEB-INF/pages/Login.jsp";
+					return "Login";
 				}
 			}
 
 		} else {
 			model.addAttribute("Login_Fail", "Invalid Credentials");
-			return "/WEB-INF/pages/Login.jsp";
+			return "Login";
 		}
 	}
 
 	@RequestMapping("/resetpasswordpage.vaccine")
 	public String resetPasswordPageRedirect() {
-		return "/WEB-INF/pages/ResetPassword.jsp";
+		return "ResetPassword";
 	}
 	
 	@RequestMapping("/loginpage.vaccine")
 	public String loginPageRedirect() {
-		return "/WEB-INF/pages/Login.jsp";
+		return "Login";
 	}
 	
 
@@ -69,30 +69,30 @@ public class LoginController {
 			if (this.loginService.resetPassword(password, userName)) {
 				model.addAttribute("Password_Reset_Success", "Password Reset, Please Login!");
 				model.addAttribute("login_link", "true");
-				return "/WEB-INF/pages/ResetPassword.jsp";
+				return "ResetPassword";
 			}
 			return "";
 		} else {
 			model.addAttribute("Password_Invalid", "Password Invalid");
-			return "/WEB-INF/pages/ResetPassword.jsp";
+			return "ResetPassword";
 		}
 
 	}
 	
 	@RequestMapping("/redirectlogin.vaccine")
 	public String redirectToLogin() {
-		return "/WEB-INF/pages/Login.jsp";
+		return "Login";
 	}
 	
 	@RequestMapping("/redirectaddmember.vaccine")
 	public String redirectToAddMember() {
-		return "/WEB-INF/pages/AddMember.jsp";
+		return "AddMember";
 	}
 
 	@RequestMapping("/logout.vaccine")
 	public String logoutUser(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		return "/WEB-INF/pages/Login.jsp";
+		return "Login";
 	}
 }

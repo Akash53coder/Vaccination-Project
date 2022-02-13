@@ -34,14 +34,14 @@ public class RegisternOTPController {
 					System.out.println("OTP Data saved");
 				}
 				model.addAttribute("OTP_Msg", "OTP Has Sent to Your EmailId !!");
-				return "/WEB-INF/pages/Verifyotp.jsp";
+				return "Verifyotp";
 			} else {
 				model.addAttribute("OTP_Not_Sent", "Sorry!! OTP Not Sent");
-				return "/Register.jsp";
+				return "Register";
 			}
 		} else {
 			model.addAttribute("Invalid_EmailId", "Invalid EmailId Entered");
-			return "/Register.jsp";
+			return "Register";
 		}
 	}
 
@@ -52,15 +52,15 @@ public class RegisternOTPController {
 			if (this.registernOTPService.verifyOTP(this.getEmailId(), otp)) {
 				System.out.println("otp varified");
 				model.addAttribute("OTP_Verified", "OTP Verified!!!");
-				return "/WEB-INF/pages/Signup.jsp";
+				return "Signup";
 			} else {
 				model.addAttribute("OTP_Invalid", "Wrong OTP Entered!!!");
-				return "/WEB-INF/pages/Verifyotp.jsp";
+				return "Verifyotp";
 			}
 
 		} else {
 			model.addAttribute("OTP_Invalid", "Invalid OTP Entered!!!");
-			return "/WEB-INF/pages/Verifyotp.jsp";
+			return "Verifyotp";
 		}
 
 	}
@@ -72,12 +72,12 @@ public class RegisternOTPController {
 		if (otpMailReSent) {
 			if (this.registernOTPService.updateOTPinDB(RegisternOTPController.emailId, otp)) {
 				model.addAttribute("OTP_Msg", "OTP Has Resent!!!");
-				return "/WEB-INF/pages/Verifyotp.jsp";
+				return "Verifyotp";
 			}
 		} else {
 			model.addAttribute("OTP_Msg", "Sorry!!! Something Went Wrong");
 		}
-		return "/WEB-INF/pages/Verifyotp.jsp";
+		return "Verifyotp";
 
 	}
 

@@ -47,9 +47,7 @@
 	</head>
 	<body>
 		<h2 class="header">Welcome to Vaccination Website
-			<form action="redirectlogin.vaccine" method="GET">
-				<button type="submit" class="btn btn-success pull-right" style="margin-top: -31px !important;margin-right: 20px;">Login</button>
-			</form>	
+			<a href="redirectlogin.vaccine"><button type="submit" class="btn btn-success pull-right" style="margin-top: -4px !important;margin-right: 20px;">Login</button></a>
 		</h2>		
 		<div class="container" style="margin-top:29px">
 			<div class="col-sm-4"></div>
