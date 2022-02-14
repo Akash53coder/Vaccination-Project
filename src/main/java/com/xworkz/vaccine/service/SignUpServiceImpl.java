@@ -33,8 +33,8 @@ public class SignUpServiceImpl implements SignUpService{
 	public boolean validateUserSignUp(UserSignUpDTO userSignUpDTO) {
 		System.out.println("called validateUserSignUp()");
 		boolean flag = false;
-		if (userSignUpDTO.getName() != null && !userSignUpDTO.getName().isBlank()
-				&& !userSignUpDTO.getName().isBlank()) {
+		if (userSignUpDTO.getName() != null 
+				&& !userSignUpDTO.getName().isEmpty()) {
 			flag = true;
 		} else {
 			flag = false;
@@ -50,7 +50,7 @@ public class SignUpServiceImpl implements SignUpService{
 			return flag;
 		}
 
-		if (userSignUpDTO.getGender() != null && !userSignUpDTO.getGender().isBlank()
+		if (userSignUpDTO.getGender() != null 
 				&& !userSignUpDTO.getGender().isEmpty()) {
 			flag = true;
 		} else {
@@ -59,11 +59,11 @@ public class SignUpServiceImpl implements SignUpService{
 			return flag;
 		}
 
-		if (userSignUpDTO.getPassword() != null && !userSignUpDTO.getPassword().isBlank()
+		if (userSignUpDTO.getPassword() != null 
 				&& !userSignUpDTO.getPassword().isEmpty()) {
 			flag = true;
-			if (userSignUpDTO.getcPassword() != null && !userSignUpDTO.getcPassword().isBlank()
-					&& !userSignUpDTO.getcPassword().isBlank()) {
+			if (userSignUpDTO.getcPassword() != null 
+					&& !userSignUpDTO.getcPassword().isEmpty()) {
 				flag = true;
 				if (userSignUpDTO.getcPassword().equals(userSignUpDTO.getPassword())) {
 					flag = true;
