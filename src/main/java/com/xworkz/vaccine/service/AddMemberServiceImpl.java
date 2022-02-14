@@ -22,15 +22,15 @@ public class AddMemberServiceImpl implements AddMemberService {
 	public boolean validateAddMember(AddMemberDTO addMemberDTO) {
 		System.out.println("called validateAddMember()");
 		boolean flag = false;
-		if (addMemberDTO.getUserName() != null && !addMemberDTO.getUserName().isBlank()
-				&& !addMemberDTO.getUserName().isBlank()) {
+		if (addMemberDTO.getUserName() != null 
+				&& !addMemberDTO.getUserName().isEmpty()) {
 			flag = true;
 		} else {
 			flag = false;
 			AddMemberService.errorMap.put("Name_Invalid", "Name Invalid");
 			return flag;
 		}
-		if (addMemberDTO.getGender() != null && !addMemberDTO.getGender().isBlank()
+		if (addMemberDTO.getGender() != null 
 				&& !addMemberDTO.getGender().isEmpty()) {
 			flag = true;
 		} else {
@@ -45,8 +45,8 @@ public class AddMemberServiceImpl implements AddMemberService {
 			AddMemberService.errorMap.put("YOB_Invalid", "YOB Invalid");
 			return flag;
 		}
-		if (addMemberDTO.getPhoto_id_proof() != null && !addMemberDTO.getPhoto_id_proof().isBlank()
-				&& !addMemberDTO.getPhoto_id_proof().isBlank()) {
+		if (addMemberDTO.getPhoto_id_proof() != null 
+				&& !addMemberDTO.getPhoto_id_proof().isEmpty()) {
 			flag = true;
 		} else {
 			flag = false;
@@ -60,15 +60,15 @@ public class AddMemberServiceImpl implements AddMemberService {
 			AddMemberService.errorMap.put("Photo_Id_No_Invalid", "Photo Id No. Invalid");
 			return flag;
 		}
-		if (addMemberDTO.getDose() != null && !addMemberDTO.getDose().isBlank() && !addMemberDTO.getDose().isBlank()) {
+		if (addMemberDTO.getDose() != null  && !addMemberDTO.getDose().isEmpty()) {
 			flag = true;
 		} else {
 			flag = false;
 			AddMemberService.errorMap.put("Dose_Invalid", "Dose Invalid");
 			return flag;
 		}
-		if (addMemberDTO.getVaccine_type() != null && !addMemberDTO.getVaccine_type().isBlank()
-				&& !addMemberDTO.getVaccine_type().isBlank()) {
+		if (addMemberDTO.getVaccine_type() != null 
+				&& !addMemberDTO.getVaccine_type().isEmpty()) {
 			flag = true;
 		} else {
 			flag = false;
