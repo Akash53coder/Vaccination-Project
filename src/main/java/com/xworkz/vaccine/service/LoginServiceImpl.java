@@ -21,13 +21,13 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public boolean validateLoginInfo(String userName, String password) {
 		boolean flag = false;
-		if (!userName.isBlank() && !userName.isEmpty() && userName != null) {
+		if ( !userName.isEmpty() && userName != null) {
 			flag = true;
 		} else {
 			flag = false;
 			return flag;
 		}
-		if (!password.isBlank() && !password.isEmpty() && password != null) {
+		if (!password.isEmpty() && password != null) {
 			flag = true;
 		} else {
 			flag = false;
