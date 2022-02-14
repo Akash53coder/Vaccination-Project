@@ -26,7 +26,7 @@ public class RegisternOTPServiceImpl implements RegisternOTPService {
 	@Override
 	public boolean validateEmailId(String email) {
 		System.out.println("called validateEmailId()");
-		if (!email.isBlank() && !email.isEmpty() && email != null) {
+		if (!email.isEmpty() && email != null) {
 			return true;
 		}
 		return false;
