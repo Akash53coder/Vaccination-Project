@@ -91,7 +91,8 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<plugins>
+	</dependencies>
+	<plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -110,7 +111,5 @@
                 </configuration>
             </plugin>
         </plugins>
-
-	</dependencies>
 
 </project>
