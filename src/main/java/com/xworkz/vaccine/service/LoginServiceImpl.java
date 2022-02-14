@@ -71,8 +71,8 @@ public class LoginServiceImpl implements LoginService {
 	public boolean validateResetPasswords(String password, String confirmPassword) {
 		boolean flag = false;
 		if (password != null && confirmPassword != null) {
-			if (!password.isBlank() && !password.isEmpty()) {
-				if (!confirmPassword.isBlank() && !confirmPassword.isEmpty()) {
+			if (!password.isEmpty()) {
+				if (!confirmPassword.isEmpty()) {
 					if (password.equals(confirmPassword)) {
 						return true;
 					}
